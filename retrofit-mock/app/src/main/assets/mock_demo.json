@@ -12,5 +12,17 @@
       "name": "Jeremy",
       "id": 1
     }
+  },
+  "/api/testMock": {
+    "code": 200,
+    "protocol": "http/1.1",
+    "message": "test mock",
+    "contentType": "application/json;charset=UTF-8",
+    "header": {
+    },
+    "body": {
+      "name": "Jeremy",
+      "id": 1
+    }
   }
 }
