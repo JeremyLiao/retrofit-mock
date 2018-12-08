@@ -1,0 +1,16 @@
+{
+  "/api/getBean": {
+    "code": 200,
+    "protocol": "http/1.1",
+    "message": "",
+    "contentType": "application/json;charset=UTF-8",
+    "header": {
+      "header1": "a",
+      "header2": "b"
+    },
+    "body": {
+      "name": "Jeremy",
+      "id": 1
+    }
+  }
+}
