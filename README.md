@@ -12,6 +12,13 @@ retrofit-mock就是为了解决使用retrofit联调的时候各种麻烦，方�
 
 ## 如何使用retrofit-mock
 #### 设置repository引用
+
+```
+dependencies {
+    implementation 'com.jeremyliao:retrofit-mock:0.0.1'
+}
+```
+
 #### 初始化
 在Application的onCreate方法中初始化：
 
