@@ -11,9 +11,22 @@ android {
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
-        release {
+        debug {
             minifyEnabled false
+        }
+        release {
+            minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+    sourceSets {
+        main {
+            java.srcDirs = ['src/main/java']
+            assets.srcDirs = ['src/main/assets']
+        }
+
+        debug {
+            assets.srcDirs = ['src/debug/assets']
         }
     }
 }
