@@ -8,6 +8,7 @@ import com.google.gson.reflect.TypeToken;
 import com.jeremy.retrofitmock.utils.AssetsUtil;
 
 import java.lang.reflect.Type;
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -25,18 +26,23 @@ public class MockDataManager {
         return Holder.INSTANCE;
     }
 
-    private Map<String, ResponseInfo> infoMap;
+    private Map<String, ResponseInfo> infoMap = new HashMap<>();
+    private Gson gson = new Gson();
 
     private MockDataManager() {
     }
 
     public void init(Context context, String path) {
-        Gson gson = new Gson();
-        Type type = new TypeToken<Map<String, ResponseInfo>>() {
-        }.getType();
-        String json = AssetsUtil.getAssetsAsString(context,
-                TextUtils.isEmpty(path) ? DEFAULT_DATA_PATH : path);
-        infoMap = gson.fromJson(json, type);
+        try {
+            Type type = new TypeToken<Map<String, ResponseInfo>>() {
+            }.getType();
+            String json = AssetsUtil.getAssetsAsString(context,
+                    TextUtils.isEmpty(path) ? DEFAULT_DATA_PATH : path);
+            infoMap = gson.fromJson(json, type);
+        } catch (Exception e) {
+            infoMap = new HashMap<>();
+            e.printStackTrace();
+        }
     }
 
     public Map<String, ResponseInfo> getInfoMap() {

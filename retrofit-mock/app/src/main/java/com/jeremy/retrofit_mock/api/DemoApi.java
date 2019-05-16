@@ -2,7 +2,7 @@ package com.jeremy.retrofit_mock.api;
 
 import com.jeremy.retrofit_mock.bean.TestBean;
 
-import retrofit2.Call;
+import io.reactivex.Observable;
 import retrofit2.http.GET;
 
 /**
@@ -11,5 +11,5 @@ import retrofit2.http.GET;
 
 public interface DemoApi {
     @GET("/api/getBean")
-    Call<TestBean> getBean();
+    Observable<TestBean> getBean();
 }

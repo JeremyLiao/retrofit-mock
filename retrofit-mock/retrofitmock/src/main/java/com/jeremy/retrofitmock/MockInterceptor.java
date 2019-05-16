@@ -8,14 +8,18 @@ import java.util.Map;
 
 import okhttp3.Interceptor;
 import okhttp3.Protocol;
+import okhttp3.Request;
 import okhttp3.Response;
 
 /**
  * Created by liaohailiang on 2018/12/4.
  */
-public class MockInterceptor implements Interceptor {
+public abstract class MockInterceptor implements Interceptor {
     @Override
     public Response intercept(Chain chain) throws IOException {
+        if (!accept(chain.request())) {
+            return chain.proceed(chain.request());
+        }
         String path = chain.request().url().encodedPath();
         Map<String, ResponseInfo> infoMap = MockDataManager.get().getInfoMap();
         if (infoMap.containsKey(path)) {
@@ -34,13 +38,9 @@ public class MockInterceptor implements Interceptor {
             }
             return builder.build();
         } else {
-            return new Response.Builder()
-                    .request(chain.request())
-                    .code(200)
-                    .protocol(Protocol.HTTP_1_1)
-                    .body(new MockResponseBody(chain.request()))
-                    .message("")
-                    .build();
+            return chain.proceed(chain.request());
         }
     }
+
+    abstract public boolean accept(Request request);
 }

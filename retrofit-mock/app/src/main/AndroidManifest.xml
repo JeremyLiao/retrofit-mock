@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.jeremy.retrofit_mock">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:name=".DemoApplication"
         android:allowBackup="true"
