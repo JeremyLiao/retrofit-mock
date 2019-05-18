@@ -1,5 +1,5 @@
 # retrofit-mock
-一个用于Retrofit mock response数据的工具
+Retrofit mock 利器，解决接口联调没有数据的烦恼。
 ## 为什么要使用retrofit-mock
 在Android日常开发中，我们使用retrofit获取接口数据。经常会遇到下面两种情况：
 1. Android端开发完成了，后端的接口还没有完成，联调不了，心里好烦...
