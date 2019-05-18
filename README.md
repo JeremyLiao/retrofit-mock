@@ -8,14 +8,14 @@
 retrofit-mock就是为了解决使用retrofit联调的时候各种麻烦，方便的mock出你想要的各种数据。
 
 ## 适用场景
-适用于retrofit2+okhttp3的场景
+适用于retrofit2+okhttp3
 
 ## 如何使用retrofit-mock
 #### 设置repository引用
 
 ```
 dependencies {
-    implementation 'com.jeremyliao:retrofit-mock:0.0.1'
+    implementation 'com.jeremyliao:retrofit-mock:0.1.0'
 }
 ```
 
@@ -27,23 +27,53 @@ RetrofitMock.init(this, "mock_demo.json");
 ```
 其中“mock_demo.json”是你定义在Assets中的mock数据文件。
 #### 创建mock数据
-mock数据放在Android Assets文件夹中，可参考[mock_demo.json](https://github.com/JeremyLiao/retrofit-mock/blob/master/retrofit-mock/app/src/main/assets/mock_demo.json)
-
-mock数据是json格式，定义每一条mock数据都需要定义其request path和response，如下图所示：
+mock数据是放在Android Assets文件夹（建议放在src/debug/assets中）中的mock_demo.json：
+```
+{
+  "/api/getBean": {
+    "code": 200,
+    "protocol": "http/1.1",
+    "message": "",
+    "contentType": "application/json;charset=UTF-8",
+    "header": {
+      "header1": "a",
+      "header2": "b"
+    },
+    "body": {
+      "name": "Jeremy",
+      "id": 1
+    }
+  },
+  "/api/testMock": {
+    "code": 200,
+    "protocol": "http/1.1",
+    "message": "test mock",
+    "contentType": "application/json;charset=UTF-8",
+    "header": {
+    },
+    "body": {
+      "name": "Jeremy",
+      "id": 1
+    }
+  }
+}
+```
+mock数据是json格式，定义每一条mock数据都需要定义其request path和response：
 
 ![mock_data](https://github.com/JeremyLiao/retrofit-mock/blob/master/imgs/mock_data.png)
 
 #### 使用mock数据
-要使用mock数据，只需要在创建Retrofit实例设置OkHttpClient的时候addInterceptor(new MockInterceptor())即可。比如在Demo [RetrofitFactory](https://github.com/JeremyLiao/retrofit-mock/blob/master/retrofit-mock/app/src/main/java/com/jeremy/retrofit_mock/RetrofitFactory.java)中，创建了一个返回mock Retrofit的方法：
+要使用mock数据，只需要在创建Retrofit实例设置OkHttpClient的时候配置MockInterceptor(new MockInterceptor())即可。例如：
 
 ```java
 public static Retrofit createMockRetrofit(String host) {
     Retrofit retrofit = new Retrofit.Builder()
             .baseUrl(host)
             .client(new OkHttpClient.Builder()
-                    .addInterceptor(new MockInterceptor())
+                    .addInterceptor(new SimpleMockInterceptor(true))
                     .build())
             .addConverterFactory(GsonConverterFactory.create())
+            .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
             .build();
     return retrofit;
 }
