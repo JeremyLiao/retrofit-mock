@@ -23,7 +23,7 @@ public abstract class MockInterceptor implements Interceptor {
         String path = chain.request().url().encodedPath();
         Map<String, ResponseInfo> infoMap = MockDataManager.get().getInfoMap();
         if(infoMap == null){
-            throw new IllegalStateException("Please make sure that the mock file is specified in the src/assets directory.");
+            throw new IllegalStateException("Please make sure that the mock file is specified in the src/main/assets directory.");
         }
         if (infoMap.containsKey(path)) {
             ResponseInfo responseInfo = infoMap.get(path);
